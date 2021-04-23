@@ -6,4 +6,9 @@
     <string name="login">Login</string>
     <string name="sign_up">Sign Up</string>
     <string name="sign_up_text">New here? sign Up</string>
+
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+    <string name="back4app_app_id">WIU6J2w7auPHQKa404VrifUcwkP89FrJtmSHKsja</string>
+    <string name="back4app_client_key">RU7XBiNqk59mTl0X5xgyGR2s6gl97k6UlXQLlsKA</string>
+
 </resources>
