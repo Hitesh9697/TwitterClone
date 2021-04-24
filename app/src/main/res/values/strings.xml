@@ -11,4 +11,10 @@
     <string name="back4app_app_id">WIU6J2w7auPHQKa404VrifUcwkP89FrJtmSHKsja</string>
     <string name="back4app_client_key">RU7XBiNqk59mTl0X5xgyGR2s6gl97k6UlXQLlsKA</string>
 
+    <string name="menu_profile">Profile</string>
+    <string name="menu_following">Following</string>
+    <string name="menu_followers">Followers</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>

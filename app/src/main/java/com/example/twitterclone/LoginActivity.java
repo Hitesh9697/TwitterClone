@@ -48,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
             if (parseUser != null) {
                 Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                 finish();
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(intent);
             } else {
                 ParseUser.logOut();
                 Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
