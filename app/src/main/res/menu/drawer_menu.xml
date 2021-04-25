@@ -5,8 +5,8 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/itemProfile"
-            android:title="@string/menu_profile"/>
+            android:id="@+id/itemUsers"
+            android:title="@string/menu_users" />
         <item
             android:id="@+id/itemFollowing"
             android:title="@string/menu_following"/>

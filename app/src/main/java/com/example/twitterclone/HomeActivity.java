@@ -1,22 +1,37 @@
 package com.example.twitterclone;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.twitterclone.databinding.ActivityHomeBinding;
+import com.google.android.material.navigation.NavigationView;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-public class HomeActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ActivityHomeBinding binding;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +44,55 @@ public class HomeActivity extends AppCompatActivity {
                 R.string.nav_app_bar_open_drawer_description, R.string.nav_app_bar_open_drawer_description);
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        progressDialog = new ProgressDialog(HomeActivity.this);
         View header = binding.navigationView.getHeaderView(0);
         TextView text = header.findViewById(R.id.textViewNavUserName);
         text.setText(ParseUser.getCurrentUser().getUsername());
+
+        binding.navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.itemLogout :
+                progressDialog.setMessage("Logging out");
+                ParseUser.logOutInBackground(e -> {
+                    progressDialog.dismiss();
+                    finish();
+                    Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                });
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.itemUsers :
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new UserFragment()).commit();
+                break;
+            case R.id.itemFollowing :
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new FollowingFragment()).commit();
+                break;
+            case R.id.itemFollowers :
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new FollowersFragment()).commit();
+                break;
+        }
+        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     @Override

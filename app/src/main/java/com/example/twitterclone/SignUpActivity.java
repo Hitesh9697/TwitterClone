@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.twitterclone.databinding.ActivitySignUpBinding;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
@@ -47,6 +48,9 @@ public class SignUpActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                             if (e == null) {
                                 Toast.makeText(SignUpActivity.this, "Sign Up successful", Toast.LENGTH_SHORT).show();
+                                ParseObject parseObject = new ParseObject("Follow");
+                                parseObject.put("username", binding.editTextSignUpUsername.getText().toString());
+                                parseObject.saveInBackground();
                                 finish();
                             } else {
                                 ParseUser.logOut();
