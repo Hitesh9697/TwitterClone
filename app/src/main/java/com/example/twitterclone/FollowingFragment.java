@@ -1,8 +1,12 @@
 package com.example.twitterclone;
 
+import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -20,6 +24,7 @@ public class FollowingFragment extends Fragment {
     private FragmentFollowingBinding binding;
     private FollowingUsersRecyclerViewAdapter adapter;
     private List<String> followerList;
+    private FragmentActivity myContext;
 
     public FollowingFragment() {
         // Required empty public constructor
@@ -38,6 +43,12 @@ public class FollowingFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        myContext=(FragmentActivity) activity;
+        super.onAttach(activity);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentFollowingBinding.inflate(inflater, container, false);
@@ -48,6 +59,15 @@ public class FollowingFragment extends Fragment {
         adapter = new FollowingUsersRecyclerViewAdapter(followerList);
         binding.followingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.followingRecyclerView.setAdapter(adapter);
+
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                FragmentManager fragManager = myContext.getSupportFragmentManager();
+                fragManager.beginTransaction().replace(R.id.fragmentContainer,  new TweeterFeedFragment()).commit();
+            }
+        });
 
         return view;
     }

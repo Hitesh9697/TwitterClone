@@ -48,7 +48,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         View header = binding.navigationView.getHeaderView(0);
         TextView text = header.findViewById(R.id.textViewNavUserName);
         text.setText(ParseUser.getCurrentUser().getUsername());
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new TweeterFeedFragment()).commit();
         binding.navigationView.setNavigationItemSelectedListener(this);
     }
 

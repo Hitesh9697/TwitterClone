@@ -77,10 +77,19 @@ public class FragmentNavHeader extends Fragment {
                 binding.button.setText("Following");
             }
         }*/
-        if (ParseUser.getCurrentUser().getList("following").contains(username)) {
-            binding.button.setText("Following");
+        if(ParseUser.getCurrentUser().getList("following") != null) {
+            if (ParseUser.getCurrentUser().getList("following").contains(username)) {
+                binding.button.setText("Following");
+            } else {
+                binding.button.setText("Follow");
+            }
         } else {
-            binding.button.setText("Follow");
+            ParseUser.getCurrentUser().add("following", "temp");
+            ParseUser.getCurrentUser().getList("following").remove("temp");
+            List tempList = ParseUser.getCurrentUser().getList("following");
+            ParseUser.getCurrentUser().remove("following");
+            ParseUser.getCurrentUser().put("following", tempList);
+            ParseUser.getCurrentUser().saveInBackground();
         }
 
         binding.button.setOnClickListener(new View.OnClickListener() {
