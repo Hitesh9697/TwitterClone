@@ -1,4 +1,4 @@
-package com.example.twitterclone;
+package com.example.twitterclone.Controller;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,14 +7,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.twitterclone.R;
+import com.example.twitterclone.View.TweeterFeedViewHolder;
 import com.parse.ParseObject;
 
 import java.util.List;
 
-public class TweeterFeedAdapter extends RecyclerView.Adapter<TweeterFeedViewHolder> {
+public class TweeterFeedRecyclerViewAdapter extends RecyclerView.Adapter<TweeterFeedViewHolder> {
     private List<ParseObject> parseObjectList;
 
-    public TweeterFeedAdapter(List<ParseObject> list) {
+    public TweeterFeedRecyclerViewAdapter(List<ParseObject> list) {
         parseObjectList = list;
     }
 

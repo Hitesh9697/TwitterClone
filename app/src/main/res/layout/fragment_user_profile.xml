@@ -4,10 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Model.UserFragment" >
+    tools:context=".Model.UserProfileFragment">
 
-    <ListView
-        android:id="@+id/userListView"
+    <FrameLayout
+        android:id="@+id/userProfileNavContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userTweetFeedRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

@@ -15,7 +15,7 @@
         android:theme="@style/Theme.TwitterClone">
 
         <activity
-            android:name=".HomeActivity"
+            android:name=".Model.HomeActivity"
             android:theme="@style/Theme.TwitterClone.NoActionBar" />
 
         <meta-data

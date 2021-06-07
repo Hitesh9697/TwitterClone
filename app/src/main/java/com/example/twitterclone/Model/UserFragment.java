@@ -1,7 +1,6 @@
-package com.example.twitterclone;
+package com.example.twitterclone.Model;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -17,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.example.twitterclone.R;
 import com.example.twitterclone.databinding.FragmentUserBinding;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -98,7 +98,8 @@ public class UserFragment extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         FragmentManager fragManager = myContext.getSupportFragmentManager();
-        fragManager.beginTransaction().replace(R.id.fragmentContainer,  new FragmentNavHeader(userList.get(position), true, 1f, userList)).commitNow();
+        fragManager.beginTransaction().replace(R.id.fragmentContainer,  new UserProfileFragment(userList.get(position), true, 1f)).commitNow();
+
     }
 
 

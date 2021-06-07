@@ -1,4 +1,4 @@
-package com.example.twitterclone;
+package com.example.twitterclone.Model;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,10 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
+import com.example.twitterclone.R;
 import com.example.twitterclone.databinding.FragmentCreateTweetBinding;
 import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 

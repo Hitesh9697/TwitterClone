@@ -1,14 +1,14 @@
-package com.example.twitterclone;
+package com.example.twitterclone.Controller;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.twitterclone.R;
+import com.example.twitterclone.View.FollowingUsersRecyclerViewHolder;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;

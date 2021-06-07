@@ -1,32 +1,23 @@
-package com.example.twitterclone;
+package com.example.twitterclone.Model;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.twitterclone.LoginActivity;
+import com.example.twitterclone.R;
 import com.example.twitterclone.databinding.ActivityHomeBinding;
 import com.google.android.material.navigation.NavigationView;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -81,6 +72,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         switch (item.getItemId()) {
 
+            case R.id.itemProfile :
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new UserProfileFragment(ParseUser.getCurrentUser().getUsername(), false, 0f)).commit();
+                break;
             case R.id.itemUsers :
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new UserFragment()).commit();
                 break;
@@ -89,6 +83,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.itemFollowers :
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new FollowersFragment()).commit();
+                break;
+            case R.id.itemTweetFeed :
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new TweeterFeedFragment()).commit();
                 break;
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START);

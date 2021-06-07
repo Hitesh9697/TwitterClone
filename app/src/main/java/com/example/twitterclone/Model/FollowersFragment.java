@@ -1,4 +1,4 @@
-package com.example.twitterclone;
+package com.example.twitterclone.Model;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.twitterclone.Controller.FollowersUsersRecyclerViewAdapter;
+import com.example.twitterclone.R;
 import com.example.twitterclone.databinding.FragmentFollowersBinding;
 import com.parse.FindCallback;
 import com.parse.ParseException;

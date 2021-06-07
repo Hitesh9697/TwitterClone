@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.twitterclone.Model.HomeActivity;
 import com.example.twitterclone.databinding.ActivityLoginBinding;
 import com.parse.ParseUser;
 

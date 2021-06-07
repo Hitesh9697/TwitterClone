@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     android:orientation="vertical"
-    tools:context=".TweeterFeedFragment">
+    tools:context=".Model.TweeterFeedFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tweeterFeedRecyclerView"

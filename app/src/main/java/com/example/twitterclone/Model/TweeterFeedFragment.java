@@ -1,4 +1,4 @@
-package com.example.twitterclone;
+package com.example.twitterclone.Model;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.twitterclone.R;
+import com.example.twitterclone.Controller.TweeterFeedRecyclerViewAdapter;
 import com.example.twitterclone.databinding.FragmentTweeterFeedBinding;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -20,14 +22,12 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 
 public class TweeterFeedFragment extends Fragment {
     private FragmentTweeterFeedBinding binding;
-    private TweeterFeedAdapter adapter;
+    private TweeterFeedRecyclerViewAdapter adapter;
     private FragmentActivity myContext;
     private List<ParseObject> parseObjectList;
     public TweeterFeedFragment() {
@@ -67,7 +67,7 @@ public class TweeterFeedFragment extends Fragment {
                    for (ParseObject object : objects) {
                        parseObjectList.add(object);
                    }
-                    adapter = new TweeterFeedAdapter(parseObjectList);
+                    adapter = new TweeterFeedRecyclerViewAdapter(parseObjectList);
                     binding.tweeterFeedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     binding.tweeterFeedRecyclerView.setAdapter(adapter);
                 }
