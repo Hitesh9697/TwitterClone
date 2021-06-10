@@ -21,6 +21,8 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.util.List;
+
 
 public class CreateTweetFragment extends Fragment {
 
@@ -62,6 +64,11 @@ public class CreateTweetFragment extends Fragment {
                 ParseObject parseObject = new ParseObject("Tweets");
                 parseObject.put("username", ParseUser.getCurrentUser().getUsername());
                 parseObject.put("tweet", binding.editTextTweet.getText().toString());
+                parseObject.add("LikedBy", "temp");
+                parseObject.getList("LikedBy").remove("temp");
+                List tempList = parseObject.getList("LikedBy");
+                parseObject.remove("LikedBy");
+                parseObject.put("LikedBy", tempList);
                 parseObject.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
