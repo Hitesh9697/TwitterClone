@@ -18,6 +18,7 @@ import com.example.twitterclone.R;
 import com.example.twitterclone.databinding.FragmentCreateTweetBinding;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -27,12 +28,22 @@ import java.util.List;
 public class CreateTweetFragment extends Fragment {
 
     private FragmentActivity myContext;
+    private Boolean isReply = false;
+    private String tweet;
+    private String user;
+    private String tweetId;
 
     private FragmentCreateTweetBinding binding;
     public CreateTweetFragment() {
         // Required empty public constructor
     }
 
+    public CreateTweetFragment(Boolean isReply, String tweet, String user, String tweetId) {
+        this.isReply = isReply;
+        this.tweet = tweet;
+        this.user = user;
+        this.tweetId = tweetId;
+    }
 
     public static CreateTweetFragment newInstance() {
         CreateTweetFragment fragment = new CreateTweetFragment();
@@ -57,29 +68,64 @@ public class CreateTweetFragment extends Fragment {
         binding = FragmentCreateTweetBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        binding.buttonTweet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if(!isReply) {
+            binding.buttonTweet.setText("Tweet");
 
-                ParseObject parseObject = new ParseObject("Tweets");
-                parseObject.put("username", ParseUser.getCurrentUser().getUsername());
-                parseObject.put("tweet", binding.editTextTweet.getText().toString());
-                parseObject.add("LikedBy", "temp");
-                parseObject.getList("LikedBy").remove("temp");
-                List tempList = parseObject.getList("LikedBy");
-                parseObject.remove("LikedBy");
-                parseObject.put("LikedBy", tempList);
-                parseObject.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        hideKeyboard(getContext());
-                        FragmentManager fragManager = myContext.getSupportFragmentManager();
-                        fragManager.beginTransaction().replace(R.id.fragmentContainer,  new TweeterFeedFragment()).commit();
-                    }
-                });
+            binding.buttonTweet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-            }
-        });
+                    ParseObject parseObject = new ParseObject("Tweets");
+                    parseObject.put("username", ParseUser.getCurrentUser().getUsername());
+                    parseObject.put("tweet", binding.editTextTweet.getText().toString());
+                    parseObject.add("LikedBy", "temp");
+                    parseObject.getList("LikedBy").remove("temp");
+                    List tempList = parseObject.getList("LikedBy");
+                    parseObject.remove("LikedBy");
+                    parseObject.put("LikedBy", tempList);
+                    parseObject.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            hideKeyboard(getContext());
+                            FragmentManager fragManager = myContext.getSupportFragmentManager();
+                            fragManager.beginTransaction().replace(R.id.fragmentContainer,  new TweeterFeedFragment()).commit();
+                        }
+                    });
+
+                }
+            });
+
+        } else {
+            binding.buttonTweet.setText("Reply");
+            binding.buttonTweet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ParseObject parseObject = new ParseObject("replies");
+                    parseObject.put("tweet", tweet);
+                    parseObject.put("reply", binding.editTextTweet.getText().toString());
+                    parseObject.put("replyBy", ParseUser.getCurrentUser().getUsername());
+                    parseObject.put("replyTo", user);
+                    parseObject.put("tweetId", tweetId);
+                    parseObject.add("LikedBy", "temp");
+                    parseObject.getList("LikedBy").remove("temp");
+                    List tempList = parseObject.getList("LikedBy");
+                    parseObject.remove("LikedBy");
+                    parseObject.put("LikedBy", tempList);
+                    parseObject.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            hideKeyboard(getContext());
+                            FragmentManager fragManager = myContext.getSupportFragmentManager();
+                            getFragmentManager().popBackStack();
+                        }
+                    });
+                }
+            });
+
+
+        }
+
+
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override

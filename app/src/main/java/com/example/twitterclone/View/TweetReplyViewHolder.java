@@ -10,14 +10,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.twitterclone.R;
 
-public class TweeterFeedViewHolder extends RecyclerView.ViewHolder {
+import org.jetbrains.annotations.NotNull;
+
+public class TweetReplyViewHolder extends RecyclerView.ViewHolder {
+
     private ImageView imageViewReply, imageViewLike, imageViewShare;
-    private TextView username, tweet, textVieReplyCounter, textViewLikeCounter;
+    private TextView username, tweet, textVieReplyCounter, textViewLikeCounter, replyingUser;
     private ConstraintLayout tweetContainer;
-    public TweeterFeedViewHolder(@NonNull View itemView) {
+
+    public TweetReplyViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
+
         username = itemView.findViewById(R.id.textViewReplierUsername);
         tweet = itemView.findViewById(R.id.textViewReplyTweetContent);
+        replyingUser = itemView.findViewById(R.id.textViewReplyingUser);
 
         imageViewReply = itemView.findViewById(R.id.imageViewRepliesToReply);
         imageViewLike = itemView.findViewById(R.id.imageViewReplyLike);
@@ -26,14 +32,7 @@ public class TweeterFeedViewHolder extends RecyclerView.ViewHolder {
         textVieReplyCounter = itemView.findViewById(R.id.textViewReplyToReplyCounter);
         textViewLikeCounter = itemView.findViewById(R.id.textViewReplyLikeCounter);
         tweetContainer = itemView.findViewById(R.id.replyTweetContainer);
-    }
 
-    public TextView getUsername() {
-        return username;
-    }
-
-    public TextView getTweet() {
-        return tweet;
     }
 
     public ImageView getImageViewReply() {
@@ -48,12 +47,24 @@ public class TweeterFeedViewHolder extends RecyclerView.ViewHolder {
         return imageViewShare;
     }
 
+    public TextView getUsername() {
+        return username;
+    }
+
+    public TextView getTweet() {
+        return tweet;
+    }
+
     public TextView getTextVieReplyCounter() {
         return textVieReplyCounter;
     }
 
     public TextView getTextViewLikeCounter() {
         return textViewLikeCounter;
+    }
+
+    public TextView getReplyingUser() {
+        return replyingUser;
     }
 
     public ConstraintLayout getTweetContainer() {

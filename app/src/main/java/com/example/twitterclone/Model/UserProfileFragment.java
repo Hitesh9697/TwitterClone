@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -89,6 +90,9 @@ public class UserProfileFragment extends Fragment {
                     }
                     adapter = new TweeterFeedRecyclerViewAdapter(parseObjectList);
                     binding.userTweetFeedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
+                    dividerItemDecoration.setDrawable(getContext().getResources().getDrawable(R.drawable.tweet_background));
+                    binding.userTweetFeedRecyclerView.addItemDecoration(dividerItemDecoration);
                     binding.userTweetFeedRecyclerView.setAdapter(adapter);
                 }
             }

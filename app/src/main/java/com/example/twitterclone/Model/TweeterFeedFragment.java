@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -69,6 +70,10 @@ public class TweeterFeedFragment extends Fragment {
                    }
                     adapter = new TweeterFeedRecyclerViewAdapter(parseObjectList);
                     binding.tweeterFeedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
+                    dividerItemDecoration.setDrawable(getContext().getResources().getDrawable(R.drawable.tweet_background));
+                    binding.tweeterFeedRecyclerView.addItemDecoration(dividerItemDecoration);
+                    //binding.tweeterFeedRecyclerView.addItemDecoration(new DividerItemDecoration(binding.tweeterFeedRecyclerView.getContext(), DividerItemDecoration.HORIZONTAL));
                     binding.tweeterFeedRecyclerView.setAdapter(adapter);
                 }
             }
@@ -80,7 +85,7 @@ public class TweeterFeedFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager fragManager = myContext.getSupportFragmentManager();
-                fragManager.beginTransaction().replace(R.id.fragmentContainer,  new CreateTweetFragment()).commit();
+                fragManager.beginTransaction().replace(R.id.fragmentContainer,  new CreateTweetFragment(false, null,null,null)).commit();
             }
         });
 
