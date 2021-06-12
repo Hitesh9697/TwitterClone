@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.twitterclone.Model.CreateTweetFragment;
 import com.example.twitterclone.Model.TweetFragment;
+import com.example.twitterclone.Model.UserProfileFragment;
 import com.example.twitterclone.R;
 import com.example.twitterclone.View.TweetReplyViewHolder;
 import com.parse.FindCallback;
@@ -126,6 +127,15 @@ public class TweetReplyRecyclerViewAdapter extends RecyclerView.Adapter<TweetRep
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
                 holder.getTextVieReplyCounter().setText(objects.size()+"");
+            }
+        });
+
+        holder.getReplyingUser().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                Fragment myFragment = new UserProfileFragment(holder.getReplyingUser().getText().toString(), true, 1f);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, myFragment).addToBackStack(null).commit();
             }
         });
 

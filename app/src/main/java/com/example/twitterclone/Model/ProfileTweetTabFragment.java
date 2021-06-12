@@ -1,14 +1,8 @@
 package com.example.twitterclone.Model;
 
-import android.app.Activity;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -16,43 +10,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.twitterclone.Controller.TabAdapter;
 import com.example.twitterclone.Controller.TweeterFeedRecyclerViewAdapter;
 import com.example.twitterclone.R;
-import com.example.twitterclone.databinding.FragmentUserBinding;
-import com.example.twitterclone.databinding.FragmentUserProfileBinding;
+import com.example.twitterclone.databinding.FragmentProfileTweetTabBinding;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserProfileFragment extends Fragment {
+public class ProfileTweetTabFragment extends Fragment {
 
-    private FragmentUserProfileBinding binding;
-    private TweeterFeedRecyclerViewAdapter adapter;
-    private FragmentActivity myContext;
+    private FragmentProfileTweetTabBinding binding;
     private List<ParseObject> parseObjectList;
-    private List<String> userList;
     private String username;
-    private Boolean btnClickable;
-    private Float btnAlpha;
+    private TweeterFeedRecyclerViewAdapter adapter;
 
-    public UserProfileFragment() {
+    public ProfileTweetTabFragment() {
         // Required empty public constructor
     }
 
-    public UserProfileFragment(String user, Boolean b,Float f) {
+    public ProfileTweetTabFragment(String user) {
+        // Required empty public constructor
         username = user;
-        btnClickable = b;
-        btnAlpha = f;
     }
 
-    public static UserProfileFragment newInstance(String param1, String param2) {
-        UserProfileFragment fragment = new UserProfileFragment();
+
+    public static ProfileTweetTabFragment newInstance(String param1, String param2) {
+        ProfileTweetTabFragment fragment = new ProfileTweetTabFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -64,24 +51,14 @@ public class UserProfileFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        myContext=(FragmentActivity) activity;
-        super.onAttach(activity);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentUserProfileBinding.inflate(inflater, container, false);
+
+        binding = FragmentProfileTweetTabBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        FragmentManager fragManager = myContext.getSupportFragmentManager();
-        fragManager.beginTransaction().replace(R.id.userProfileNavContainer,  new FragmentNavHeader(username, btnClickable, btnAlpha, userList)).commit();
-
-
-
-        /*parseObjectList = new ArrayList<>();
+        parseObjectList = new ArrayList<>();
         ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Tweets");
         parseQuery.whereEqualTo("username", username);
         parseQuery.findInBackground(new FindCallback<ParseObject>() {
@@ -99,16 +76,7 @@ public class UserProfileFragment extends Fragment {
                     binding.userTweetFeedRecyclerView.setAdapter(adapter);
                 }
             }
-        });*/
-
-
-        AppCompatActivity activity = (AppCompatActivity) view.getContext();
-        TabAdapter tabAdapter = new TabAdapter(activity.getSupportFragmentManager(), username);
-        //binding.viewPager.removeAllViews();
-        tabAdapter.notifyDataSetChanged();
-        binding.viewPager.setAdapter(tabAdapter);
-        binding.tabs.setupWithViewPager(binding.viewPager, true);
-
+        });
 
         return view;
     }
