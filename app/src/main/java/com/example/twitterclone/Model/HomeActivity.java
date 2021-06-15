@@ -39,7 +39,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         View header = binding.navigationView.getHeaderView(0);
         TextView text = header.findViewById(R.id.textViewNavUserName);
         text.setText(ParseUser.getCurrentUser().getUsername());
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new TweeterFeedFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new TweeterFeedFragment()).addToBackStack(null).commit();
         binding.navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -73,16 +73,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
 
             case R.id.itemProfile :
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new UserProfileFragment(ParseUser.getCurrentUser().getUsername(), false, 0f)).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new UserProfileFragment(ParseUser.getCurrentUser().getUsername(), false, 0f)).addToBackStack(null).commit();
                 break;
             case R.id.itemUsers :
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new UserFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new UserFragment()).addToBackStack(null).commit();
                 break;
             case R.id.itemFollowing :
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new FollowingFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new FollowingFragment()).addToBackStack(null).commit();
                 break;
             case R.id.itemFollowers :
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new FollowersFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new FollowersFragment()).addToBackStack(null).commit();
                 break;
             case R.id.itemTweetFeed :
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,  new TweeterFeedFragment()).commit();

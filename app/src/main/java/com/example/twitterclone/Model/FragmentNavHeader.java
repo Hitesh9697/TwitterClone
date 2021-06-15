@@ -6,12 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 
-import com.example.twitterclone.R;
+
+
 import com.example.twitterclone.databinding.NavHeaderBinding;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -70,11 +69,6 @@ public class FragmentNavHeader extends Fragment {
         binding.textViewNavUserName.setText(username);
         binding.button.setClickable(btnClickable);
         binding.button.setAlpha(btnAlpha);
-        /*for (String user : userList) {
-            if (ParseUser.getCurrentUser().getList("following").contains(user)) {
-                binding.button.setText("Following");
-            }
-        }*/
         if(ParseUser.getCurrentUser().getList("following") != null) {
             if (ParseUser.getCurrentUser().getList("following").contains(username)) {
                 binding.button.setText("Following");
@@ -130,16 +124,6 @@ public class FragmentNavHeader extends Fragment {
 
                 }
                 ParseUser.getCurrentUser().saveInBackground();
-            }
-        });
-
-
-
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                FragmentManager fragManager = myContext.getSupportFragmentManager();
-                fragManager.beginTransaction().replace(R.id.fragmentContainer,  new UserFragment()).commit();
             }
         });
 

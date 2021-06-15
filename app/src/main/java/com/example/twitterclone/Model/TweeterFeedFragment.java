@@ -85,7 +85,7 @@ public class TweeterFeedFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager fragManager = myContext.getSupportFragmentManager();
-                fragManager.beginTransaction().replace(R.id.fragmentContainer,  new CreateTweetFragment(false, null,null,null)).commit();
+                fragManager.beginTransaction().replace(R.id.fragmentContainer,  new CreateTweetFragment(false, null,null,null)).addToBackStack(null).commit();
             }
         });
 

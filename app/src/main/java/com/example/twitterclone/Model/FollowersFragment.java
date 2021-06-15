@@ -31,7 +31,6 @@ public class FollowersFragment extends Fragment {
     private FragmentFollowersBinding binding;
     private FollowersUsersRecyclerViewAdapter adapter;
     private List<String> followerList;
-    private FragmentActivity myContext;
 
     public FollowersFragment() {
         // Required empty public constructor
@@ -49,11 +48,7 @@ public class FollowersFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        myContext=(FragmentActivity) activity;
-        super.onAttach(activity);
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,7 +56,6 @@ public class FollowersFragment extends Fragment {
         binding = FragmentFollowersBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         followerList = new ArrayList<>();
-        //followerList = ParseUser.getCurrentUser().getList("following");
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Follow");
         query.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
@@ -81,14 +75,6 @@ public class FollowersFragment extends Fragment {
                 adapter = new FollowersUsersRecyclerViewAdapter(followerList);
                 binding.followersRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 binding.followersRecyclerView.setAdapter(adapter);
-            }
-        });
-
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                FragmentManager fragManager = myContext.getSupportFragmentManager();
-                fragManager.beginTransaction().replace(R.id.fragmentContainer,  new TweeterFeedFragment()).commit();
             }
         });
 

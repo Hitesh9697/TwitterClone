@@ -3,10 +3,8 @@ package com.example.twitterclone.Model;
 import android.app.Activity;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -14,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.twitterclone.Controller.FollowingUsersRecyclerViewAdapter;
-import com.example.twitterclone.R;
 import com.example.twitterclone.databinding.FragmentFollowingBinding;
 import com.parse.ParseUser;
 
@@ -62,14 +59,6 @@ public class FollowingFragment extends Fragment {
         binding.followingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.followingRecyclerView.setAdapter(adapter);
 
-
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                FragmentManager fragManager = myContext.getSupportFragmentManager();
-                fragManager.beginTransaction().replace(R.id.fragmentContainer,  new TweeterFeedFragment()).commit();
-            }
-        });
 
         return view;
     }

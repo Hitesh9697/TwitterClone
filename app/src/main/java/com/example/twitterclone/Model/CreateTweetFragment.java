@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -18,7 +17,6 @@ import com.example.twitterclone.R;
 import com.example.twitterclone.databinding.FragmentCreateTweetBinding;
 import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -88,7 +86,7 @@ public class CreateTweetFragment extends Fragment {
                         public void done(ParseException e) {
                             hideKeyboard(getContext());
                             FragmentManager fragManager = myContext.getSupportFragmentManager();
-                            fragManager.beginTransaction().replace(R.id.fragmentContainer,  new TweeterFeedFragment()).commit();
+                            fragManager.beginTransaction().replace(R.id.fragmentContainer,  new TweeterFeedFragment()).addToBackStack(null).commit();
                         }
                     });
 
@@ -124,16 +122,6 @@ public class CreateTweetFragment extends Fragment {
 
 
         }
-
-
-
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                FragmentManager fragManager = myContext.getSupportFragmentManager();
-                fragManager.beginTransaction().replace(R.id.fragmentContainer,  new TweeterFeedFragment()).commit();
-            }
-        });
 
         return view;
     }

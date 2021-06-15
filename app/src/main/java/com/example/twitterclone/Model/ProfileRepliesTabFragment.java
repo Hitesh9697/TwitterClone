@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.twitterclone.R;
 import com.example.twitterclone.databinding.FragmentProfileRepliesTabBinding;
 
 public class ProfileRepliesTabFragment extends Fragment {
