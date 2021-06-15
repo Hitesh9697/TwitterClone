@@ -10,8 +10,11 @@ import android.widget.Toast;
 import com.example.twitterclone.databinding.ActivitySignUpBinding;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+
+import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -41,6 +44,11 @@ public class SignUpActivity extends AppCompatActivity {
                     // Set the user's username and password, which can be obtained by a forms
                     user.setUsername(binding.editTextSignUpUsername.getText().toString());
                     user.setPassword(binding.editTextSignUpPassword.getText().toString());
+                    user.add("following", "temp");
+                    user.getList("following").remove("temp");
+                    List tempList = user.getList("following");
+                    user.remove("following");
+                    user.put("following", tempList);
                     progressDialog.show();
                     user.signUpInBackground(new SignUpCallback() {
                         @Override
